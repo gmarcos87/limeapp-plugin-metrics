@@ -1,0 +1,3 @@
+/*export const getSid = (state) => state.meta.sid;*/
+"use strict";
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9tZXRyaWNzU2VsZWN0b3JzLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Im1ldHJpY3NTZWxlY3RvcnMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKmV4cG9ydCBjb25zdCBnZXRTaWQgPSAoc3RhdGUpID0+IHN0YXRlLm1ldGEuc2lkOyovXG4iXX0=

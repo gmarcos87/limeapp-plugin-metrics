@@ -1,0 +1,11 @@
+{
+  "en": {
+    "metrics_c80fba05": "Metrics",
+    "get_metrics_e0f17084": "Get metrics",
+    "package_loss_a81b6c86": "Package loss",
+    "metrics_status_gateway":"Searching gateway",
+    "metrics_status_path":"Calculating network path",
+    "metrics_status_stations":"Measuring each link",
+    "load_last_known_internet_path": "Load last known Internet path"
+  }
+}

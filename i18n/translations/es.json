@@ -1,0 +1,11 @@
+{
+  "es": {
+    "metrics_c80fba05": "Metricas",
+    "get_metrics_e0f17084": "Obtener mediciones",
+    "package_loss_a81b6c86": "Paquetes perdidos",
+    "metrics_status_gateway":"Buscando tu salida a Internet",
+    "metrics_status_path":"Cargando el recorrido en la red",
+    "metrics_status_stations":"Midiendo cada enlace",
+    "load_last_known_internet_path": "Cargando utlimo recorrido conocido"
+  }
+}
