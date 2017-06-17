@@ -45,7 +45,7 @@ class Box extends Component {
   }
   render() {
     return (
-        <div style={(this.props.station.loading)? style.loading: style.box}>
+        <div style={(this.props.station.loading)? style.loading: style.box} onClick={()=>this.props.click()} >
             <b>{this.props.station.hostname}</b><br/>
             {this.props.station.bandwidth} Mbps / <span>{I18n.t('Package loss')}</span> {this.props.station.loss}%<br/>
             <div style={this.barStyle(this.props.station.loss)}>

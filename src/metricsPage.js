@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import { bindActionCreators } from 'redux';
 import { connect } from 'preact-redux';
 
-import { getMetrics } from './metricsActions';
+import { getMetrics, changeNode } from './metricsActions';
 
 import Loading from './components/loading';
 import Box from './components/box';
@@ -82,7 +82,7 @@ class Metrics extends Component {
         {this.showLoading(this.props.metrics.loading)}<br />
         {this.props.metrics.error.map(x => this.showError(x))}
           {this.props.metrics.metrics.map(station => (
-            <Box station={station} />
+            <Box station={station} click={()=>this.props.changeNode(station.hostname.split('_')[0])} />
             ))}
         {this.showButton(this.props.metrics.loading)}<br />
       </div>
@@ -99,7 +99,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMetrics: bindActionCreators(getMetrics,dispatch)
+    getMetrics: bindActionCreators(getMetrics,dispatch),
+    changeNode: bindActionCreators(changeNode,dispatch)
   };
 };
 
