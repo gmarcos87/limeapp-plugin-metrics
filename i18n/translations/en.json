@@ -1,11 +1,15 @@
 {
   "en": {
-    "metrics_c80fba05": "Metrics",
+    "metrics_c80fba05": "Diagnostic",
     "get_metrics_e0f17084": "Get metrics",
     "package_loss_a81b6c86": "Package loss",
     "metrics_status_gateway":"Searching gateway",
     "metrics_status_path":"Calculating network path",
-    "metrics_status_stations":"Measuring each link",
-    "load_last_known_internet_path": "Load last known Internet path"
+    "metrics_status_stations":"Measuring links",
+    "load_last_known_internet_path": "Load last known Internet path",
+    "only_gateway_727b1656": "Only gateway",
+    "full_path_metrics_2859608f": "Full path metrics",
+    "from_fdd4956d": "From",
+    "to_internet_494eb85c": "To Internet"
   }
 }

@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import { bindActionCreators } from 'redux';
 import { connect } from 'preact-redux';
 
-import { getMetrics, changeNode } from './metricsActions';
+import { getMetrics, getMetricsAll, getMetricsGateway, changeNode } from './metricsActions';
 
 import Loading from './components/loading';
 import Box from './components/box';
@@ -30,6 +30,27 @@ const style = {
     padding: '5px',
     borderRadius: '4px',
     fontWeight: 'bold'
+  },
+  box: {
+    margin: '3px',
+    padding: '10px',
+    fontSize: '1.4em',
+    background: '#f5f5f5',
+    textAalign: 'center',
+    overflow: 'hidden',
+    height: 'auto'
+  },
+  loadingBox: {
+    position: 'fixed',
+    marginTop: '40vh',
+    zIndex: '5555',
+    background: 'rgb(255, 255, 255)',
+    width: '60vw',
+    top: '0px',
+    left: '20vw',
+    borderRadius: '11px',
+    padding: '10%',
+    boxShadow: '1px 1px 6px rgba(0,0,0,0.5)'
   }
 };
 
@@ -40,9 +61,15 @@ class Metrics extends Component {
   showButton(loading) {
     if (!loading) {
       return (
-        <button class="button green block" type="submit" onClick={this.props.getMetrics}>
-          {I18n.t('Get metrics')}
-        </button>
+        <div class="row">
+          <br/>
+          <button class="button green block u-full-width" type="submit" onClick={()=>this.props.getMetricsGateway(this.props.metrics.gateway)}>
+            {I18n.t('Only gateway')}
+          </button>
+          <button class="button green block u-full-width"  type="submit" onClick={this.props.getMetricsAll}>
+            {I18n.t('Full path metrics')}
+          </button>
+        </div>
       );
     }
     return (
@@ -56,7 +83,7 @@ class Metrics extends Component {
       return;
     }
     return (
-      <div style={{paddingTop:'50px'}}>
+      <div style={style.loadingBox}>
         <Loading></Loading>
         <span style={style.textLoading}>{I18n.translateWithoutI18nline(this.props.metrics.status)}</span>
       </div>
@@ -71,19 +98,19 @@ class Metrics extends Component {
   }
 
   isGateway(hostname, gateway) {
-    return (hostname === gateway)? (
-      <span><img src=""/></span>
-    ) : (false);
+    return (hostname === gateway)? true : false;
   }
   
   render() {
     return (
-      <div class="container" style={{paddingTop:'50px', textAlign:'center'}}>
-        {this.showLoading(this.props.metrics.loading)}<br />
+      <div class="container" style={{paddingTop:'80px', textAlign:'center'}}>
         {this.props.metrics.error.map(x => this.showError(x))}
+          <div style={style.box}>{I18n.t('From')+' '+this.props.meta.selectedHost}</div>
           {this.props.metrics.metrics.map(station => (
-            <Box station={station} click={()=>this.props.changeNode(station.hostname.split('_')[0])} />
+            <Box station={station} click={()=>this.props.changeNode(station.hostname.split('_')[0])} gateway={this.isGateway(station.hostname,this.props.metrics.gateway)}/>
             ))}
+          <div style={style.box}>{I18n.t('To Internet')}</div>
+        {this.showLoading(this.props.metrics.loading)}
         {this.showButton(this.props.metrics.loading)}<br />
       </div>
     );
@@ -93,13 +120,16 @@ class Metrics extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    metrics: state.metrics
+    metrics: state.metrics,
+    meta: state.meta
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getMetrics: bindActionCreators(getMetrics,dispatch),
+    getMetricsGateway: bindActionCreators(getMetricsGateway,dispatch),
+    getMetricsAll: bindActionCreators(getMetricsAll,dispatch),
     changeNode: bindActionCreators(changeNode,dispatch)
   };
 };

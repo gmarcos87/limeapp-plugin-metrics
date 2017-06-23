@@ -32,6 +32,12 @@ const style = {
     margin: '0 auto',
     height: '8px',
     backgroundColor: '#ccc'
+  },
+  gateway: {
+    marginButtom: '0px',
+    marginTop: '-9px',
+    fontSize: '2.4rem',
+    lineHeight: '1.35'
   }
 };
 
@@ -43,10 +49,13 @@ class Box extends Component {
       backgroundColor: colorScale.getColor(loss)
     });
   }
+  isGateway(gateway, hostname){
+    return (gateway === true)? hostname + ' (Gateway)' : hostname;
+  }
   render() {
     return (
         <div style={(this.props.station.loading)? style.loading: style.box} onClick={()=>this.props.click()} >
-            <b>{this.props.station.hostname}</b><br/>
+            <span><b>{this.isGateway(this.props.gateway, this.props.station.hostname)}</b><br/></span>
             {this.props.station.bandwidth} Mbps / <span>{I18n.t('Package loss')}</span> {this.props.station.loss}%<br/>
             <div style={this.barStyle(this.props.station.loss)}>
             </div>

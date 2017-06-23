@@ -1,11 +1,15 @@
 {
   "es": {
-    "metrics_c80fba05": "Metricas",
+    "metrics_c80fba05": "Diagnostico",
     "get_metrics_e0f17084": "Obtener mediciones",
     "package_loss_a81b6c86": "Paquetes perdidos",
     "metrics_status_gateway":"Buscando tu salida a Internet",
     "metrics_status_path":"Cargando el recorrido en la red",
-    "metrics_status_stations":"Midiendo cada enlace",
-    "load_last_known_internet_path": "Cargando utlimo recorrido conocido"
+    "metrics_status_stations":"Midiendo enlace",
+    "load_last_known_internet_path": "Cargando utlimo recorrido conocido",
+    "only_gateway_727b1656": "Solo el gateway",
+    "full_path_metrics_2859608f": "Todo el recorrido",
+    "from_fdd4956d": "Desde",
+    "to_internet_494eb85c": "Hasta Internet"
   }
 }

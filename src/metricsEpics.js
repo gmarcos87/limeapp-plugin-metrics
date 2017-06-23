@@ -3,11 +3,15 @@ import {
   LOAD_GATEWAY_SUCCESS,
   LOAD_GATEWAY_ERROR,
   LOAD_GATEWAY_NOT_FOUND,
+  LOAD_PATH,
   LOAD_PATH_SUCCESS,
   LOAD_PATH_ERROR,
   LOAD_PATH_NOT_FOUND,
   LOAD_METRICS,
-  LOAD_METRICS_SUCCESS
+  LOAD_METRICS_SUCCESS,
+  LOAD_METRICS_GATEWAY_SUCCESS,
+  LOAD_METRICS_ALL,
+  LOAD_METRICS_GATEWAY
 } from './metricsConstants';
 
 import 'rxjs/add/operator/concatMap';
@@ -27,7 +31,7 @@ const loadGateway = ( action$, store, { wsAPI }) =>
 
 const loadPath = ( action$, store, { wsAPI }) =>
   action$.ofType(LOAD_GATEWAY_SUCCESS)
-      .mergeMap((action)=> getPath(wsAPI,store.getState().meta.sid,{target:action.payload.gateway}))
+      .mergeMap((action)=> getPath(wsAPI,store.getState().meta.sid,{target:store.getState().metrics.gateway}))
       .map(payload => {
         if (!payload.error) {
           return {type:LOAD_PATH_SUCCESS, payload};
@@ -38,7 +42,7 @@ const loadPath = ( action$, store, { wsAPI }) =>
 
 const loadLastPath = ( action$, store, { wsAPI }) =>
   action$.ofType(LOAD_GATEWAY_NOT_FOUND)
-      .mergeMap((action)=> getLastKnownPath(wsAPI,store.getState().meta.sid,{target:action.payload.gateway}))
+      .mergeMap((action)=> getLastKnownPath(wsAPI,store.getState().meta.sid,{}))
       .map(payload => {
         if (!payload.error) {
           return {type:LOAD_PATH_SUCCESS, payload};
@@ -48,10 +52,22 @@ const loadLastPath = ( action$, store, { wsAPI }) =>
       .catch([({type:LOAD_PATH_ERROR})]);
 
 const loadMetrics = ( action$, store, { wsAPI }) =>
-    action$.ofType(LOAD_PATH_SUCCESS)
-      .map(action => action.payload)
-      .concatMap(paths => paths.map((path)=>getMetrics(wsAPI,store.getState().meta.sid,{target:path})))
+    action$.ofType(LOAD_METRICS_ALL)
+      .map(action => store.getState().metrics.metrics)
+      .concatMap(paths => paths.map((path)=>getMetrics(wsAPI,store.getState().meta.sid,{target:path.hostname})))
       .concatAll()
       .map(payload => ({type:LOAD_METRICS_SUCCESS, payload }));
-      
-export default { loadGateway, loadPath, loadMetrics, loadLastPath };
+
+/*const loadGatewayPath = ( action$ ) =>
+    action$.ofType(LOAD_GATEWAY_SUCCESS)
+      .map(action => action.payload)
+      .map(payload => ({type:LOAD_PATH_SUCCESS, payload:[payload.gateway]}));
+*/
+const loadGatewayMetrics = ( action$, store, { wsAPI }) =>
+    action$.ofType(...[LOAD_PATH_SUCCESS,LOAD_METRICS_GATEWAY])
+      .map(action => action.payload)
+      .mergeMap(payload => getMetrics(wsAPI,store.getState().meta.sid,{target:store.getState().metrics.gateway})
+        .map(payload => ({type:LOAD_METRICS_GATEWAY_SUCCESS, payload })));
+
+
+export default { loadGateway, loadPath, loadMetrics, loadLastPath, loadGatewayMetrics };
