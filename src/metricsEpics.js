@@ -14,9 +14,12 @@ import {
   LOAD_METRICS_GATEWAY
 } from './metricsConstants';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/mergeAll';
 import 'rxjs/add/operator/concatAll';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/mergeAll';
 
 const loadGateway = ( action$, store, { wsAPI }) =>
   action$.ofType(LOAD_METRICS)

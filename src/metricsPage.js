@@ -42,14 +42,14 @@ const style = {
   },
   loadingBox: {
     position: 'fixed',
-    marginTop: '40vh',
+    marginTop: '30vh',
     zIndex: '5555',
     background: 'rgb(255, 255, 255)',
-    width: '60vw',
+    width: '200px',
     top: '0px',
-    left: '20vw',
+    left: 'calc(50% - 100px)',
     borderRadius: '11px',
-    padding: '10%',
+    padding: '15px',
     boxShadow: '1px 1px 6px rgba(0,0,0,0.5)'
   }
 };
