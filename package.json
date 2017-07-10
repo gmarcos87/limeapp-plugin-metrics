@@ -1,6 +1,6 @@
 {
   "name": "@libremesh/limeapp-plugin-metrics",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Metrics module for LiMe App",
   "main": "dist/index.js",
   "scripts": {
