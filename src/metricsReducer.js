@@ -36,6 +36,8 @@ export const reducer = (state = initialState, { type, payload, meta }) => {
       return Object.assign({}, state, {error: state.error.concat(payload.error), loading: false, status:''});
     case LOAD_METRICS_SUCCESS:
       let newMetrics = state.metrics.map(x => {
+        if (x.bandwidth < payload.bandwidth) { x.bandwidth = payload.bandwidth; }
+        if (x.loss > payload.loss) { x.loss = payload.loss; }
         if (x.hostname !== payload.hostname) { return x; }
         x.loading = false;
         return Object.assign({}, x, payload);
